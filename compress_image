@@ -1,0 +1,28 @@
+import numpy as np
+
+"""
+Grabs the image
+"""
+def grab_image(image_file):
+	return np.array(cv2.imread(os.path.join(scan_filepath, image_file)  + '.jpg', cv2.IMREAD_GRAYSCALE))
+
+"""
+Compresses the image
+"""
+def compress(img):
+	rows, cols = img.shape[0], img.shape[1]
+	rem_x, rem_y = (cols + 1) % 3, (rows+1) % 3
+	img = np.pad()
+	final = np.array(img.shape)
+	for r in range(rows):
+		for c in range(cols):
+			center = np.array([3, 3])
+			center.fill(img[r][c])
+			frame = img[r-1:r+2][c-1:c+2]
+			frame = center - frame
+			frame = np.square(frame)
+			sum_horiz, sum_vert =  np.sum(frame, axis=1), np.sum(frame, axis=0)
+			right[r][c] = sum_vert[2]
+			left[r][c] = sum_vert[0]
+			up[r][c] = sum_horiz[0]
+			down[r][c] = sum_horiz[2]

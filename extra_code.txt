@@ -1,0 +1,14 @@
+	spines.sort(key=lambda pair: pair[0])
+	hips.sort(key=lambda pair: pair[0])
+
+	print(hips)
+
+	for i in range(len(spines)):
+		hip_img = np.array(cv2.imread(os.path.join(scan_filepath, hips[i][0])  + '.jpg', cv2.IMREAD_GRAYSCALE))
+		spine_img = np.array(cv2.imread(os.path.join(scan_filepath, spines[i][0])  + '.jpg', cv2.IMREAD_GRAYSCALE))
+		if not pd.isnull(spines[i][1]) and spines[i][1] < 18:
+			hip_img = np.reshape(hip_img, (224, 224, 1))
+			spine_img = np.reshape(spine_img, (224, 224, 1))
+			joined = np.concatenate((hip_img, spine_img), axis=2)
+			x_train_pre.append(joined)
+			y_train_pre.append(spines[i][1])
